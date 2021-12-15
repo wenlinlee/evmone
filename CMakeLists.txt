@@ -4,9 +4,9 @@
 
 cmake_minimum_required(VERSION 3.16...3.27)
 
-if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/evmc/.git)
-    message(FATAL_ERROR "Git submodules not initialized, execute:\n  git submodule update --init")
-endif()
+# if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/evmc/.git)
+#     message(FATAL_ERROR "Git submodules not initialized, execute:\n  git submodule update --init")
+# endif()
 
 option(BUILD_SHARED_LIBS "Build evmone as a shared library" ON)
 option(EVMONE_TESTING "Build tests and test tools" OFF)
@@ -38,10 +38,12 @@ endif()
 
 hunter_add_package(ethash)
 find_package(ethash CONFIG REQUIRED)
+hunter_add_package(evmc)
+find_package(evmc CONFIG REQUIRED)
 
 option(EVMC_TOOLS "Build EVMC test tools" ${EVMONE_TESTING})
 option(EVMC_INSTALL "Install EVMC" OFF)
-add_subdirectory(evmc)
+# add_subdirectory(evmc)
 
 cable_configure_compiler(NO_STACK_PROTECTION)
 if(CABLE_COMPILER_GNULIKE)
@@ -154,5 +156,9 @@ install(TARGETS ${install_targets} EXPORT evmoneTargets
 
 install(DIRECTORY ${include_dir}/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib/evmone
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING PATTERN "*.hpp")
 
 cable_add_archive_package()

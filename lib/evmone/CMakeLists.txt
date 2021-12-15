@@ -2,6 +2,8 @@
 # Copyright 2019 The evmone Authors.
 # SPDX-License-Identifier: Apache-2.0
 
+set(TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
+
 include(LibraryTools)
 
 add_library(evmone
@@ -67,3 +69,26 @@ endif()
 set_source_files_properties(vm.cpp PROPERTIES COMPILE_DEFINITIONS PROJECT_VERSION="${PROJECT_VERSION}")
 
 add_standalone_library(evmone)
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" COMPATIBILITY SameMajorVersion
+)
+
+set(CONFIGURE_TEMPLATE_FILE_PATH "${CMAKE_CURRENT_BINARY_DIR}/Config.cmake.in")
+set(CONFIGURE_TEMPLATE_FILE_CONTENT "@PACKAGE_INIT@ \n include(\"\${CMAKE_CURRENT_LIST_DIR}/@TARGETS_EXPORT_NAME@.cmake\") \n check_required_components(\"@PROJECT_NAME@\")")
+file(WRITE "${CONFIGURE_TEMPLATE_FILE_PATH}" ${CONFIGURE_TEMPLATE_FILE_CONTENT})
+
+configure_package_config_file(
+  "${CONFIGURE_TEMPLATE_FILE_PATH}"
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+  PATH_VARS CMAKE_INSTALL_LIBDIR)
+
+install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+
+install(
+    EXPORT "${TARGETS_EXPORT_NAME}"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
