@@ -54,11 +54,11 @@ EVMC_EXPORT CodeAnalysis analyze(evmc_revision rev, bytes_view code);
 
 /// Executes in Baseline interpreter using EVMC-compatible parameters.
 evmc_result execute(evmc_vm* vm, const evmc_host_interface* host, evmc_host_context* ctx,
-    evmc_revision rev, const evmc_message* msg, const uint8_t* code, size_t code_size) noexcept;
+    evmc_revision rev, const evmc_message* msg, const uint8_t* code, size_t code_size);
 
 /// Executes in Baseline interpreter on the given external and initialized state.
 EVMC_EXPORT evmc_result execute(
-    const VM&, int64_t gas_limit, ExecutionState& state, const CodeAnalysis& analysis) noexcept;
+    const VM&, int64_t gas_limit, ExecutionState& state, const CodeAnalysis& analysis);
 
 }  // namespace baseline
 }  // namespace evmone

@@ -324,7 +324,7 @@ TARGET_OP_UNDEFINED:
 }  // namespace
 
 evmc_result execute(
-    const VM& vm, int64_t gas, ExecutionState& state, const CodeAnalysis& analysis) noexcept
+    const VM& vm, int64_t gas, ExecutionState& state, const CodeAnalysis& analysis)
 {
     state.analysis.baseline = &analysis;  // Assign code analysis for instruction implementations.
 
@@ -362,7 +362,7 @@ evmc_result execute(
 }
 
 evmc_result execute(evmc_vm* c_vm, const evmc_host_interface* host, evmc_host_context* ctx,
-    evmc_revision rev, const evmc_message* msg, const uint8_t* code, size_t code_size) noexcept
+    evmc_revision rev, const evmc_message* msg, const uint8_t* code, size_t code_size)
 {
     auto vm = static_cast<VM*>(c_vm);
     const bytes_view container{code, code_size};

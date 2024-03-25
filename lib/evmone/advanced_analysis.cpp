@@ -43,7 +43,7 @@ AdvancedCodeAnalysis analyze(evmc_revision rev, bytes_view code) noexcept
 {
     const auto& op_tbl = get_op_table(rev);
     const auto opx_beginblock_fn = op_tbl[OPX_BEGINBLOCK].fn;
-
+    
     AdvancedCodeAnalysis analysis;
 
     const auto max_instrs_size = code.size() + 2;  // Additional OPX_BEGINBLOCK and STOP
