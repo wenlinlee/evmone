@@ -21,7 +21,7 @@ hunter_config(benchmark
     SHA1 b8c2501b33c8649a2c9e2268d8f652284ac5a778
 )
 
-hunter_config(evmc VERSION v10.1.0-d2627090
+hunter_config(evmc VERSION v11.0.1-b2986bdd
         URL https://github.com/FISCO-BCOS/evmc/archive/b2986bdd68ddf9f35c3ae889c5bee8b643ecb4bd.tar.gz
         SHA1 31d90cc44332d15b12e375cfd13402ddfe715b47
 )
